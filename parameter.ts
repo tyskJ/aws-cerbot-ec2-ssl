@@ -14,6 +14,7 @@ import * as cdk from "aws-cdk-lib";
 ║ azInfo          │ Type defined Availavility Zone.                                                                                                  ║
 ║ subnetType      │ Type defined Subnet Type.                                                                                                        ║
 ║ vpcProps        │ Type defined L2 Construct vpc configuration Properties.                                                                          ║
+║ roleProps       │ Type defined L2 Construct IAM Role Properties.                                                                                   ║
 ╚═════════════════╧══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 */
 export type azInfo = "a" | "c" | "d";
@@ -42,6 +43,17 @@ export type vpcProps = {
   }[];
 };
 
+export type roleProps = {
+  id: string;
+  roleName: string;
+  assumed: string | string[];
+  description: string;
+  customManagedPolicyAdd: boolean;
+  awsManagedPolicyAdd: boolean;
+  awsManagedPolicyName?: { policyName: string }[];
+  tags: { key: string; value: string }[];
+};
+
 /*
 ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║ Interface IParameterProps                                                                                                                          ║
@@ -50,6 +62,7 @@ export type vpcProps = {
 export interface IParameterProps extends cdk.StackProps {
   EnvName: string;
   vpc: vpcProps;
+  ec2Role: roleProps;
 }
 
 /*
@@ -58,6 +71,7 @@ export interface IParameterProps extends cdk.StackProps {
 ╠═════════════════╤══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║ EnvName         │ common tag value.                                                                                                                ║
 ║ vpc             │ VPC.                                                                                                                             ║
+║ ec2Role         │ EC2 Role.                                                                                                                        ║
 ╚═════════════════╧══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 */
 export const devParameter: IParameterProps = {
@@ -81,5 +95,20 @@ export const devParameter: IParameterProps = {
         mapPublicIpFlag: true,
       },
     ],
+  },
+
+  ec2Role: {
+    id: "Ec2Role",
+    roleName: "iam-role-ec2",
+    assumed: "ec2.amazonaws.com",
+    description: "EC2 Role",
+    customManagedPolicyAdd: false,
+    awsManagedPolicyAdd: true,
+    awsManagedPolicyName: [
+      {
+        policyName: "AmazonSSMManagedInstanceCore",
+      },
+    ],
+    tags: [{ key: "Name", value: "iam-role-ec2" }],
   },
 };

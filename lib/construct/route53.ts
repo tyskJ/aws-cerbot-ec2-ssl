@@ -23,7 +23,7 @@ export class Route53Construct extends Construct {
     // import hosted zone
     const hosted_zone = route53.HostedZone.fromHostedZoneAttributes(
       this,
-      "Zone" + props.zone_apnex_name,
+      "Zone." + props.zone_apnex_name,
       { hostedZoneId: props.hosted_zone_id, zoneName: props.zone_apnex_name }
     );
 

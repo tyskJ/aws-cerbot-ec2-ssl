@@ -25,7 +25,12 @@ export class Ec2Construct extends Construct {
     super(scope, id);
 
     // IAM Role
-    const iamRole = this.createIamRole(this, props.roleInfo);
+    let iamRole: iam.Role;
+    if (props.managedPolicy) {
+      iamRole = this.createIamRole(this, props.roleInfo, props.managedPolicy);
+    } else {
+      iamRole = this.createIamRole(this, props.roleInfo);
+    }
 
     // KeyPair
     const cfnkeyPair = new ec2.CfnKeyPair(this, props.keyPairInfo.id, {
@@ -50,6 +55,44 @@ export class Ec2Construct extends Construct {
     );
 
     // EC2 Instance
+    const instance = new ec2.Instance(this, "Ec2Instance", {
+      vpc: props.vpc,
+      instanceType: ec2.InstanceType.of(
+        ec2.InstanceClass.T3,
+        ec2.InstanceSize.LARGE
+      ),
+      machineImage: ec2.MachineImage.latestAmazonLinux2023(),
+      allowAllOutbound: true,
+      disableApiTermination: false,
+      ebsOptimized: true,
+      instanceName: "ec2-instance",
+      keyPair: keyPair,
+      role: iamRole,
+      vpcSubnets: {
+        subnetType: ec2.SubnetType.PUBLIC,
+      },
+      blockDevices: [
+        {
+          deviceName: "/dev/xvda",
+          volume: ec2.BlockDeviceVolume.ebs(30, {
+            volumeType: ec2.EbsDeviceVolumeType.GP3,
+            deleteOnTermination: true,
+            encrypted: true,
+          }),
+        },
+      ],
+    });
+    // Add Sg Inbound
+    instance.connections.allowFrom(
+      ec2.Peer.anyIpv4(),
+      ec2.Port.HTTP,
+      "Allow Inbound HTTP."
+    );
+    instance.connections.allowFrom(
+      ec2.Peer.anyIpv4(),
+      ec2.Port.HTTPS,
+      "Allow Inbound HTTPS."
+    );
   }
   /*
   ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗

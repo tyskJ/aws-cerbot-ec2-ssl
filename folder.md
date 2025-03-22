@@ -9,7 +9,8 @@
 |-- lib
 |   |-- construct                           コンストラクト
 |   |   |-- ec2.ts                            EC2
-|   |   `-- nw.ts                             Network
+|   |   |-- nw.ts                             Network
+|   |   `-- route53.ts                        RecordSet
 |   `-- stack
 |       `-- aws-certbot-ec2-ssl-stack.ts    CDK Stack定義ファイル
 `-- parameter.ts                            環境リソース設定値定義ファイル

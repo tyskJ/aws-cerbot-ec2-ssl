@@ -48,5 +48,26 @@ export class NetworkConstruct extends Construct {
       restrictDefaultSecurityGroup: props.vpcInfo.notCreateDefaultSgFlag,
       subnetConfiguration: subnetConfiguration,
     });
+
+    // NetworkACL
+    const nacl = new ec2.NetworkAcl(this, "Nacl", {
+      vpc: this.vpc,
+      networkAclName: "nacl",
+      subnetSelection: {
+        subnetType: ec2.SubnetType.PUBLIC,
+      },
+    });
+    nacl.addEntry("NaclAllInboundAllow", {
+      cidr: ec2.AclCidr.anyIpv4(),
+      ruleNumber: 100,
+      traffic: ec2.AclTraffic.allTraffic(),
+      direction: ec2.TrafficDirection.INGRESS,
+    });
+    nacl.addEntry("NaclAllOutboundAllow", {
+      cidr: ec2.AclCidr.anyIpv4(),
+      ruleNumber: 100,
+      traffic: ec2.AclTraffic.allTraffic(),
+      direction: ec2.TrafficDirection.EGRESS,
+    });
   }
 }

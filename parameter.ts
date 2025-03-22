@@ -75,7 +75,7 @@ export const devParameter: IParameterProps = {
     notCreateDefaultSgFlag: false,
     subnetConfig: [
       {
-        name: "cerbot-ec2-ssl-subnet-public",
+        name: "public",
         type: "PUBLIC",
         cidrMask: 24,
         mapPublicIpFlag: true,

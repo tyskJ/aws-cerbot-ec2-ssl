@@ -15,6 +15,7 @@ import * as cdk from "aws-cdk-lib";
 ║ subnetType      │ Type defined Subnet Type.                                                                                                        ║
 ║ vpcProps        │ Type defined L2 Construct vpc configuration Properties.                                                                          ║
 ║ roleProps       │ Type defined L2 Construct IAM Role Properties.                                                                                   ║
+║ keypairProps    │ Type defined L1 Construct KeyPair.                                                                                               ║
 ╚═════════════════╧══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 */
 export type azInfo = "a" | "c" | "d";
@@ -54,6 +55,15 @@ export type roleProps = {
   tags: { key: string; value: string }[];
 };
 
+export type keypairProps = {
+  id: string;
+  keyName: string;
+  keyType: string;
+  keyFormat: string;
+  removalPolicy: boolean;
+  tags: { key: string; value: string }[];
+};
+
 /*
 ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║ Interface IParameterProps                                                                                                                          ║
@@ -63,6 +73,7 @@ export interface IParameterProps extends cdk.StackProps {
   EnvName: string;
   vpc: vpcProps;
   ec2Role: roleProps;
+  keyPair: keypairProps;
 }
 
 /*
@@ -72,6 +83,7 @@ export interface IParameterProps extends cdk.StackProps {
 ║ EnvName         │ common tag value.                                                                                                                ║
 ║ vpc             │ VPC.                                                                                                                             ║
 ║ ec2Role         │ EC2 Role.                                                                                                                        ║
+║ keyPair         │ KeyPair.                                                                                                                         ║
 ╚═════════════════╧══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 */
 export const devParameter: IParameterProps = {
@@ -110,5 +122,14 @@ export const devParameter: IParameterProps = {
       },
     ],
     tags: [{ key: "Name", value: "iam-role-ec2" }],
+  },
+
+  keyPair: {
+    id: "CfnKeyPair",
+    keyName: "keypair",
+    keyType: "rsa",
+    keyFormat: "pem",
+    removalPolicy: true,
+    tags: [{ key: "Name", value: "keypair" }],
   },
 };

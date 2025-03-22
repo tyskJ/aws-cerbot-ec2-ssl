@@ -21,6 +21,8 @@ export interface IEc2Props extends cdk.StackProps {
 }
 
 export class Ec2Construct extends Construct {
+  public readonly elasticIp: ec2.CfnEIP;
+
   constructor(scope: Construct, id: string, props: IEc2Props) {
     super(scope, id);
 
@@ -93,6 +95,13 @@ export class Ec2Construct extends Construct {
       ec2.Port.HTTPS,
       "Allow Inbound HTTPS."
     );
+
+    // Elastic IP
+    this.elasticIp = new ec2.CfnEIP(this, "Eip", {});
+    new ec2.CfnEIPAssociation(this, "EipAssociation", {
+      allocationId: this.elasticIp.attrAllocationId,
+      instanceId: instance.instanceId,
+    });
   }
   /*
   ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗

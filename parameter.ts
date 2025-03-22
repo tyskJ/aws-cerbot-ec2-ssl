@@ -34,7 +34,12 @@ export type vpcProps = {
   createIgwFlag: boolean;
   createNgwNumber: number;
   notCreateDefaultSgFlag: boolean;
-  subnetConfig: { name: string; type: subnetType; cidrMask: number }[];
+  subnetConfig: {
+    name: string;
+    type: subnetType;
+    cidrMask: number;
+    mapPublicIpFlag: boolean;
+  }[];
 };
 
 /*
@@ -73,6 +78,7 @@ export const devParameter: IParameterProps = {
         name: "cerbot-ec2-ssl-subnet-public",
         type: "PUBLIC",
         cidrMask: 24,
+        mapPublicIpFlag: true,
       },
     ],
   },

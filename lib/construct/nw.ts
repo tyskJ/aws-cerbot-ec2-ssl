@@ -33,6 +33,7 @@ export class NetworkConstruct extends Construct {
         name: subnet.name,
         subnetType: ec2.SubnetType[subnet.type as keyof typeof ec2.SubnetType],
         cidrMask: subnet.cidrMask,
+        mapPublicIpOnLaunch: subnet.mapPublicIpFlag,
       }));
 
     // VPC

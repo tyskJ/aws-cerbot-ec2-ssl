@@ -40,11 +40,11 @@ export class NetworkConstruct extends Construct {
       vpcName: props.vpcInfo.name,
       ipAddresses: ec2.IpAddresses.cidr(props.vpcInfo.vpcCidr),
       availabilityZones: azs,
-      createInternetGateway: true,
-      enableDnsHostnames: true,
-      enableDnsSupport: true,
-      natGateways: 0,
-      restrictDefaultSecurityGroup: true,
+      createInternetGateway: props.vpcInfo.createIgwFlag,
+      enableDnsHostnames: props.vpcInfo.dnsHostFlag,
+      enableDnsSupport: props.vpcInfo.dnsSupportFlag,
+      natGateways: props.vpcInfo.createNgwNumber,
+      restrictDefaultSecurityGroup: props.vpcInfo.notCreateDefaultSgFlag,
       subnetConfiguration: subnetConfiguration,
     });
   }

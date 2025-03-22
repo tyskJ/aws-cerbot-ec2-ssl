@@ -67,7 +67,7 @@ export const devParameter: IParameterProps = {
     dnsSupportFlag: true,
     createIgwFlag: true,
     createNgwNumber: 0,
-    notCreateDefaultSgFlag: true,
+    notCreateDefaultSgFlag: false,
     subnetConfig: [
       {
         name: "cerbot-ec2-ssl-subnet-public",

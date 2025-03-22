@@ -20,6 +20,7 @@ export class AwsCerbotEc2SslStack extends cdk.Stack {
     // EC2
     const ec2 = new Ec2Construct(this, "Ec2", {
       vpc: network.vpc,
+      roleInfo: props.ec2Role,
     });
   }
 }

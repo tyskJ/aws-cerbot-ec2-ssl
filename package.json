@@ -1,8 +1,8 @@
 {
-  "name": "aws-cerbot-ec2-ssl",
+  "name": "aws-certbot-ec2-ssl",
   "version": "0.1.0",
   "bin": {
-    "aws-cerbot-ec2-ssl": "bin/aws-cerbot-ec2-ssl.js"
+    "aws-cerbot-ec2-ssl": "bin/aws-certbot-ec2-ssl.js"
   },
   "scripts": {
     "build": "tsc",

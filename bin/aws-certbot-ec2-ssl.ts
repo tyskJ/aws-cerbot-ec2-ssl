@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import * as cdk from "aws-cdk-lib";
-import { AwsCerbotEc2SslStack } from "../lib/stack/aws-cerbot-ec2-ssl-stack";
+import { AwsCertbotEc2SslStack } from "../lib/stack/aws-certbot-ec2-ssl-stack";
 import { devParameter } from "../parameter";
 
 const app = new cdk.App();
-const tokyo = new AwsCerbotEc2SslStack(app, "AwsCerbotEc2SslStack", {
+const tokyo = new AwsCertbotEc2SslStack(app, "AwsCertbotEc2SslStack", {
   ...devParameter,
   description: "Tokyo Stack.",
 });

@@ -1,6 +1,6 @@
 /*
 ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-║ Cerbot EC2 SSL Stack - Cloud Development Kit parameter.ts                                                                                          ║
+║ Certbot EC2 SSL Stack - Cloud Development Kit parameter.ts                                                                                         ║
 ╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║ This file that defines the parameters for each resource.                                                                                           ║
 ╚════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
@@ -91,7 +91,7 @@ export const devParameter: IParameterProps = {
 
   vpc: {
     id: "Vpc",
-    name: "cerbot-ec2-ssl-vpc",
+    name: "certbot-ec2-ssl-vpc",
     vpcCidr: "10.0.0.0/16",
     createAZs: ["a"],
     dnsHostFlag: true,

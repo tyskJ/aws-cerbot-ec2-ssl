@@ -4,7 +4,7 @@ import { IParameterProps } from "../../parameter";
 import { NetworkConstruct } from "../construct/nw";
 import { Ec2Construct } from "../construct/ec2";
 
-export class AwsCerbotEc2SslStack extends cdk.Stack {
+export class AwsCertbotEc2SslStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: IParameterProps) {
     super(scope, id, props);
 

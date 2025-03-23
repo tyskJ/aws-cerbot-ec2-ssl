@@ -30,7 +30,7 @@ export class AwsCertbotEc2SslStack extends cdk.Stack {
     const r53 = new Route53Construct(this, "RecordSet", {
       eip: ec2.elasticIp,
       hosted_zone_id: this.node.tryGetContext("hosted_zone_id"),
-      zone_apnex_name: this.node.tryGetContext("zone_apnex_name"),
+      zone_apex_name: this.node.tryGetContext("zone_apex_name"),
       fqdn: this.node.tryGetContext("fqdn"),
     });
   }

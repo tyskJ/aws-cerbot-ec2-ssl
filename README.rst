@@ -63,7 +63,7 @@
 
   cdk deploy \
   --context hosted_zone_id=EC2用Aレコードを登録するホストゾーンID \
-  --context zone_apnex_name=EC2用Aレコードを登録するZoneApex名 \
+  --context zone_apex_name=EC2用Aレコードを登録するZoneApex名 \
   --context fqdn=EC2用FQDN \
   --profile admin
 
@@ -76,6 +76,6 @@
 
   cdk destroy \
   --context hosted_zone_id=EC2用Aレコードを登録するホストゾーンID \
-  --context zone_apnex_name=EC2用Aレコードを登録するZoneApex名 \
+  --context zone_apex_name=EC2用Aレコードを登録するZoneApex名 \
   --context fqdn=EC2用FQDN \
   --profile admin

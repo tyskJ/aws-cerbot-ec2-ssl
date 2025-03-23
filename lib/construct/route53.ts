@@ -13,7 +13,7 @@ import * as route53 from "aws-cdk-lib/aws-route53";
 export interface IRoute53Props extends cdk.StackProps {
   eip: ec2.CfnEIP;
   hosted_zone_id: string;
-  zone_apnex_name: string;
+  zone_apex_name: string;
   fqdn: string;
 }
 
@@ -23,8 +23,8 @@ export class Route53Construct extends Construct {
     // import hosted zone
     const hosted_zone = route53.HostedZone.fromHostedZoneAttributes(
       this,
-      "Zone." + props.zone_apnex_name,
-      { hostedZoneId: props.hosted_zone_id, zoneName: props.zone_apnex_name }
+      "Zone." + props.zone_apex_name,
+      { hostedZoneId: props.hosted_zone_id, zoneName: props.zone_apex_name }
     );
 
     // A Record
